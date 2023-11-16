@@ -1,0 +1,19 @@
+### api test
+
+GET http://localhost:8000
+
+
+
+# APIs
+
+### post new user
+POST http://localhost:8000/api/v1/user
+Content-Type:application/json
+
+
+{
+    "fName":"Shiva",
+    "lName":"Dhakal",
+    "email":"a@a.com",
+    "password":"123456"
+}

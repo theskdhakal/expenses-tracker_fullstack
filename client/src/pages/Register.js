@@ -4,8 +4,16 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const initialState = {
+  confirmPassword: "",
+  email: "",
+  fName: "",
+  lName: "",
+  password: "",
+};
+
 const Register = () => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState(initialState);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +31,7 @@ const Register = () => {
       console.log("didnt match");
     }
 
-    toast.success("user info sent to console");
-    setForm({
-      confirmPassword: "",
-      email: "",
-      fName: "",
-      lName: "",
-      password: "",
-    });
+    setForm(initialState);
   };
   return (
     <div className="regsiter-page d-flex justify-content-center pt-5 ">
@@ -44,6 +45,7 @@ const Register = () => {
               name="fName"
               placeholder="Enter email"
               onChange={handleOnChange}
+              value={form.fName}
             />
           </Form.Group>
 
@@ -54,6 +56,7 @@ const Register = () => {
               name="lName"
               placeholder="Enter last name"
               onChange={handleOnChange}
+              value={form.lName}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -63,6 +66,7 @@ const Register = () => {
               name="email"
               placeholder="Enter email"
               onChange={handleOnChange}
+              value={form.email}
             />
           </Form.Group>
 
@@ -73,6 +77,7 @@ const Register = () => {
               name="password"
               placeholder="Password"
               onChange={handleOnChange}
+              value={form.password}
             />
           </Form.Group>
 
@@ -83,6 +88,7 @@ const Register = () => {
               type="password"
               placeholder="Password"
               onChange={handleOnChange}
+              value={form.confirmPassword}
             />
           </Form.Group>
 
