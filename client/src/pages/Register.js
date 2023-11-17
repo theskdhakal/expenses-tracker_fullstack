@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { postNewUser } from "../helpers/axiosHelper";
 
 const initialState = {
   confirmPassword: "",
@@ -20,18 +21,21 @@ const Register = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleOnRegister = (e) => {
+  const handleOnRegister = async (e) => {
     e.preventDefault();
+
+    const { confirmPassword, ...rest } = form;
 
     console.log(form);
 
-    if (form.password === form.confirmPassword) {
-      console.log("password matches");
-    } else {
-      console.log("didnt match");
-    }
+    if (rest.password === confirmPassword) {
+      const { status, message } = await postNewUser(rest);
 
-    setForm(initialState);
+      toast[status](message);
+      status === "success" && setForm(initialState);
+    } else {
+      return alert("Password do not match");
+    }
   };
   return (
     <div className="regsiter-page d-flex justify-content-center pt-5 ">
