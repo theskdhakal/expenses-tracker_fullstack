@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,6 +17,8 @@ const initialState = {
 const Register = () => {
   const [form, setForm] = useState(initialState);
 
+  const [resp, setResp] = useState({});
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -31,6 +34,8 @@ const Register = () => {
     if (rest.password === confirmPassword) {
       const { status, message } = await postNewUser(rest);
 
+      setResp({ status, message });
+
       toast[status](message);
       status === "success" && setForm(initialState);
     } else {
@@ -42,6 +47,12 @@ const Register = () => {
       <div className="register-form bg-white border p-5 shadow-lg rounded">
         <h3>Register your details</h3>
         <Form onSubmit={handleOnRegister}>
+          {resp.message && (
+            <Alert variant={resp.status === "success" ? "success" : "danger"}>
+              {resp.message}
+            </Alert>
+          )}
+
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>First Name</Form.Label>
             <Form.Control

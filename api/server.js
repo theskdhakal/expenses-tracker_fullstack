@@ -13,8 +13,10 @@ app.use(express.json());
 
 // APIs
 import userRouter from "./src/routers/userRouter.js";
+import transactionRouter from "./src/routers/transactionRouter.js";
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/transaction", transactionRouter);
 
 // server side rendering
 app.use("/", (req, res, next) => {

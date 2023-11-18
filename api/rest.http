@@ -6,6 +6,8 @@ GET http://localhost:8000
 
 # APIs
 
+
+
 ### post new user
 POST http://localhost:8000/api/v1/user
 Content-Type:application/json
@@ -16,4 +18,33 @@ Content-Type:application/json
     "lName":"Dhakal",
     "email":"a@a.com",
     "password":"123456"
+}
+
+
+
+### user login
+### post new user
+POST http://localhost:8000/api/v1/user/login
+Content-Type:application/json
+
+
+{
+
+    "email":"a@a.com",
+    "password":"123456"
+}
+
+
+###### transaction apis
+
+###post new transactions
+
+POST http://localhost:8000/api/v1/transaction
+Content-Type: application/json
+
+{
+    "userId":"6556dacc7cedcb5250a1be5d",
+    "type":"expenses",
+    "title":"fuel",
+    "amount":188
 }
