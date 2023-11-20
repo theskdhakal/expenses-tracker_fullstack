@@ -1,6 +1,10 @@
 import Table from "react-bootstrap/Table";
 
-export const TransactionTable = () => {
+export const TransactionTable = ({ transactions }) => {
+  const total = transactions.reduce((acc, { type, amount }) => {
+    return type === "income" ? acc + amount : acc - amount;
+  }, 0);
+
   return (
     <>
       <Table striped bordered hover>
@@ -14,15 +18,24 @@ export const TransactionTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
+          {transactions.length > 0 &&
+            transactions.map((item, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                <td>{item.title}</td>
+                <td className="text-danger">
+                  {item.type === "expenses" && "-" + item.amount}
+                </td>
+                <td className="text-success">
+                  {item.type === "income" && item.amount}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </Table>
+
+      <div className="text-end fw-bold">Balance: ${total}</div>
 
       <div className="text-end fw-bold"></div>
     </>

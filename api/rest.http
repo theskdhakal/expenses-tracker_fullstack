@@ -48,3 +48,10 @@ Content-Type: application/json
     "title":"fuel",
     "amount":188
 }
+
+
+
+### get all transaction for specific user based on userID
+GET http://localhost:8000/api/v1/transaction
+Authorization: 6556dacc7cedcb5250a1be5d
+

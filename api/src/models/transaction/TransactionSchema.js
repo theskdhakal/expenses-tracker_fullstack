@@ -12,7 +12,7 @@ const transactionSchema = new mongoose.Schema(
     amount: { type: Number, require: true },
   },
   {
-    timeStamp: true,
+    timestamps: true,
   }
 );
 

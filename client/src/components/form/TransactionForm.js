@@ -4,9 +4,8 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { toast } from "react-toastify";
-import { postTransaction } from "../../helpers/axiosHelper";
 
-const TransactionForm = () => {
+const TransactionForm = ({ postData }) => {
   const [form, setForm] = useState({});
 
   const handleOnChange = (e) => {
@@ -18,14 +17,7 @@ const TransactionForm = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(form);
-
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    const userId = user._id;
-
-    const { status, message } = await postTransaction({ ...form, userId });
-
-    toast[status](message);
+    postData(form);
   };
   return (
     <Form onSubmit={handleOnSubmit}>

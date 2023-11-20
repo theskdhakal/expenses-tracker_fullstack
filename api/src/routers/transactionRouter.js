@@ -1,5 +1,8 @@
 import express from "express";
-import { addTransaction } from "../models/transaction/TransactionModel.js";
+import {
+  addTransaction,
+  getTransactions,
+} from "../models/transaction/TransactionModel.js";
 
 const router = express.Router();
 
@@ -27,9 +30,16 @@ router.get("/", async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     console.log(authorization);
+
+    const filter = {
+      userId: authorization,
+    };
+
+    const trans = await getTransactions(filter);
     res.json({
       status: "success",
-      message: "todo",
+      message: "Transaction are shown below:",
+      trans,
     });
   } catch (error) {
     next(error);
