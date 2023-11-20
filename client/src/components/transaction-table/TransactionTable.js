@@ -1,6 +1,7 @@
+import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
-export const TransactionTable = ({ transactions }) => {
+export const TransactionTable = ({ transactions, handleOnDelete }) => {
   const total = transactions.reduce((acc, { type, amount }) => {
     return type === "income" ? acc + amount : acc - amount;
   }, 0);
@@ -15,6 +16,7 @@ export const TransactionTable = ({ transactions }) => {
             <th>Title</th>
             <th>Expenses</th>
             <th>Income</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +31,16 @@ export const TransactionTable = ({ transactions }) => {
                 </td>
                 <td className="text-success">
                   {item.type === "income" && item.amount}
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      handleOnDelete(item._id);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addTransaction,
+  deleteTransaction,
   getTransactions,
 } from "../models/transaction/TransactionModel.js";
 
@@ -40,6 +41,39 @@ router.get("/", async (req, res, next) => {
       status: "success",
       message: "Transaction are shown below:",
       trans,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:_id", async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+
+    const { _id } = req.params;
+
+    if (authorization && _id) {
+      const filter = {
+        userId: authorization,
+        _id,
+      };
+
+      const result = await deleteTransaction(filter);
+
+      console.log(result);
+
+      if (result._id) {
+        return res.json({
+          status: "success",
+          message: "The transaction has been deleted",
+        });
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid request",
     });
   } catch (error) {
     next(error);

@@ -57,12 +57,33 @@ export const getTransactions = async () => {
         authorization: userId,
       },
     });
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     return {
       status: "error",
       message: error.message,
+    };
+  }
+};
+
+//delete tfransactions
+export const deleteTransaction = async (_id) => {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userId = user._id;
+
+    const response = await axios.delete(transactionEP + "/" + _id, {
+      headers: {
+        authorization: userId,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return {
+      status: "error",
+      message: "abcd",
     };
   }
 };

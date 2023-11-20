@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import TransactionForm from "../components/form/TransactionForm";
 import { TransactionTable } from "../components/transaction-table/TransactionTable";
-import { getTransactions, postTransaction } from "../helpers/axiosHelper";
+import {
+  deleteTransaction,
+  getTransactions,
+  postTransaction,
+} from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
@@ -28,6 +32,15 @@ const Dashboard = () => {
     status === "success" && fetchData();
   };
 
+  const handleOnDelete = async (_id) => {
+    if (!window.confirm("Are you sure you want to delete it ?")) {
+      return;
+    }
+    const { status, message } = await deleteTransaction(_id);
+
+    toast[status](message);
+  };
+
   return (
     <div>
       <Row>
@@ -43,7 +56,10 @@ const Dashboard = () => {
         {/* table */}
 
         <div className="mt-5 ">
-          <TransactionTable transactions={transactions} />
+          <TransactionTable
+            transactions={transactions}
+            handleOnDelete={handleOnDelete}
+          />
         </div>
       </Row>
     </div>
