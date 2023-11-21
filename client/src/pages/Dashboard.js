@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     const { status, message, trans } = await getTransactions();
-    status === "success" && trans.length && setTransactions(trans);
+    status === "success" && setTransactions(trans);
   };
 
   const postData = async (form) => {
@@ -39,6 +39,8 @@ const Dashboard = () => {
     const { status, message } = await deleteTransaction(_id);
 
     toast[status](message);
+
+    status === "success" && fetchData();
   };
 
   return (

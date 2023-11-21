@@ -36,7 +36,17 @@ const TransactionForm = ({ postData }) => {
           </Form.Select>
         </Col>
 
-        <Col md="5">
+        <Col md="3">
+          <Form.Control
+            name="date"
+            type="date"
+            placeholder="Date"
+            required
+            onChange={handleOnChange}
+          ></Form.Control>
+        </Col>
+
+        <Col md="3">
           <Form.Control
             name="title"
             placeholder="Transaction Title"

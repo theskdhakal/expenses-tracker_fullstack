@@ -24,7 +24,7 @@ export const TransactionTable = ({ transactions, handleOnDelete }) => {
             transactions.map((item, i) => (
               <tr key={i}>
                 <td>{i + 1}</td>
-                <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                <td>{new Date(item.date).toLocaleDateString()}</td>
                 <td>{item.title}</td>
                 <td className="text-danger">
                   {item.type === "expenses" && "-" + item.amount}

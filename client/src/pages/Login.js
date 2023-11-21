@@ -2,14 +2,16 @@ import React, { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginAction } from "./userState/userAction";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnLogin = async (e) => {
     e.preventDefault();
@@ -17,15 +19,7 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    const { status, message, user } = await loginUser({ email, password });
-
-    toast[status](message);
-
-    if (status === "success") {
-      sessionStorage.setItem("user", JSON.stringify(user));
-
-      navigate("/");
-    }
+    dispatch(loginAction({ email, password }));
   };
   return (
     <div className="login-page d-flex justify-content-center pt-5 ">

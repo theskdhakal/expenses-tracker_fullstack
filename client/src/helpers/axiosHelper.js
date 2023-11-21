@@ -83,7 +83,7 @@ export const deleteTransaction = async (_id) => {
   } catch (error) {
     return {
       status: "error",
-      message: "abcd",
+      message: error.message,
     };
   }
 };
