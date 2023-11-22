@@ -5,13 +5,12 @@ export const authMiddleware = async (req, res, next) => {
     //do authorisation header available?
     const { authorization } = req.headers;
 
-    console.log(req.headers);
-
     if (authorization) {
       //do user exist in the db
       const user = await getOneUser({ _id: authorization });
       if (user?._id) {
         req.userInfo = user;
+
         return next();
       }
     }

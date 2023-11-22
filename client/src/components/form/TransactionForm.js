@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { postDataAction } from "../../pages/transactionState/transactionAction";
 
 const TransactionForm = ({ postData }) => {
   const [form, setForm] = useState({});
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -17,7 +19,7 @@ const TransactionForm = ({ postData }) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    postData(form);
+    dispatch(postDataAction(form));
   };
   return (
     <Form onSubmit={handleOnSubmit}>

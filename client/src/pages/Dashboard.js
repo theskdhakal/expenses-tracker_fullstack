@@ -2,53 +2,34 @@ import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import TransactionForm from "../components/form/TransactionForm";
 import { TransactionTable } from "../components/transaction-table/TransactionTable";
-import {
-  deleteTransaction,
-  getTransactions,
-  postTransaction,
-} from "../helpers/axiosHelper";
+
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchDataAction } from "./transactionState/transactionAction";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchDataAction());
     !user._id && navigate("/login");
   }, [user]);
 
-  const fetchData = async () => {
-    const { status, message, trans } = await getTransactions();
-    console.log(message);
-    status === "success" && setTransactions(trans);
-  };
+  // const postData = async (form) => {
+  //   const user = JSON.parse(sessionStorage.getItem("user"));
+  //   const userId = user._id;
 
-  const postData = async (form) => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    const userId = user._id;
+  //   const { status, message } = await postTransaction({ ...form, userId });
 
-    const { status, message } = await postTransaction({ ...form, userId });
+  //   toast[status](message);
 
-    toast[status](message);
-
-    status === "success" && fetchData();
-  };
-
-  const handleOnDelete = async (_id) => {
-    if (!window.confirm("Are you sure you want to delete it ?")) {
-      return;
-    }
-    const { status, message } = await deleteTransaction(_id);
-
-    toast[status](message);
-
-    status === "success" && fetchData();
-  };
+  //   status === "success" && fetchData();
+  // };
 
   return (
     <div>
@@ -58,7 +39,7 @@ const Dashboard = () => {
 
         {/* form section */}
         <div className="shadow-lg mt-5">
-          <TransactionForm postData={postData} />
+          <TransactionForm />
         </div>
 
         <hr />
@@ -66,8 +47,8 @@ const Dashboard = () => {
 
         <div className="mt-5 ">
           <TransactionTable
-            transactions={transactions}
-            handleOnDelete={handleOnDelete}
+          // transactions={transactions}
+          // handleOnDelete={handleOnDelete}
           />
         </div>
       </Row>

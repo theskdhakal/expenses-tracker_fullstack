@@ -1,10 +1,20 @@
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import { deleteDataAction } from "../../pages/transactionState/transactionAction";
+import { useDispatch, useSelector } from "react-redux";
 
-export const TransactionTable = ({ transactions, handleOnDelete }) => {
+export const TransactionTable = () => {
+  const dispatch = useDispatch();
+
+  const { transactions } = useSelector((state) => state.transactions);
+
   const total = transactions.reduce((acc, { type, amount }) => {
     return type === "income" ? acc + amount : acc - amount;
   }, 0);
+
+  const handleOnDelete = (obj) => {
+    dispatch(deleteDataAction(obj));
+  };
 
   return (
     <>
