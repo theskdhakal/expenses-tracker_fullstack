@@ -8,16 +8,23 @@ import {
   postTransaction,
 } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+    !user._id && navigate("/login");
+  }, [user]);
 
   const fetchData = async () => {
     const { status, message, trans } = await getTransactions();
+    console.log(message);
     status === "success" && setTransactions(trans);
   };
 

@@ -8,16 +8,11 @@ import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
     <>
-      <MainLayout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
+      <MainLayout>
         <Routes>
-          <Route
-            path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Dashboard />} />
         </Routes>

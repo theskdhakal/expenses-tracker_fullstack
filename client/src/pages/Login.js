@@ -1,17 +1,22 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./userState/userAction";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const { user } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    user._id && navigate("/");
+  }, [user._id]);
 
   const handleOnLogin = async (e) => {
     e.preventDefault();

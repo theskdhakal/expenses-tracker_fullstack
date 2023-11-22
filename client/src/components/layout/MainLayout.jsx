@@ -3,10 +3,10 @@ import { Header } from "./Header";
 import Footer from "./Footer";
 import { Container } from "react-bootstrap";
 
-const MainLayout = ({ children, isLoggedIn, setIsLoggedIn }) => {
+const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Header />
 
       <div className="main">
         <Container>{children}</Container>

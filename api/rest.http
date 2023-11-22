@@ -53,10 +53,10 @@ Content-Type: application/json
 
 ### get all transaction for specific user based on userID
 GET http://localhost:8000/api/v1/transaction
-Authorization: 6556dacc7cedcb5250a1be5d
+authorization: 6556aeff5cf36d858f7dbbe1
 
 ### delete specific transaction
 DELETE http://localhost:8000/api/v1/transaction/_id
-Authorization:6556aeff5cf36d858f7dbbe1
+authorization:6556aeff5cf36d858f7dbbe1
 _id:655a92e179b1b3f2639cb9d2
 

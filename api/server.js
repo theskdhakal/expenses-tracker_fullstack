@@ -14,9 +14,10 @@ app.use(express.json());
 // APIs
 import userRouter from "./src/routers/userRouter.js";
 import transactionRouter from "./src/routers/transactionRouter.js";
+import { authMiddleware } from "./src/middlewares/authMiddleware.js";
 
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/transaction", transactionRouter);
+app.use("/api/v1/transaction", authMiddleware, transactionRouter);
 
 // server side rendering
 app.use("/", (req, res, next) => {
